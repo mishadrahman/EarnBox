@@ -1,0 +1,6 @@
+{
+  "name": "EarnBox - Telegram Rewards & Earning Mini App",
+  "description": "Premium mobile-first Telegram Mini App for Bangladeshi rewards: offerwall tasks, surveys, daily check-ins, bKash/Nagad/Rocket withdrawals, and Gemini earning advisor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,110 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with Telegram ID and metadata",
+      "type": "object",
+      "properties": {
+        "telegramId": { "type": "string", "maxLength": 64 },
+        "username": { "type": "string", "maxLength": 64 },
+        "firstName": { "type": "string", "maxLength": 100 },
+        "lastName": { "type": "string", "maxLength": 100 },
+        "referralCode": { "type": "string", "maxLength": 32 },
+        "referredBy": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "accountStatus": { "type": "string", "enum": ["active", "suspended", "flagged"] }
+      },
+      "required": ["telegramId", "createdAt", "accountStatus"]
+    },
+    "Wallet": {
+      "title": "User Wallet",
+      "description": "User balance and earnings in BDT",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "availableBalance": { "type": "number" },
+        "pendingBalance": { "type": "number" },
+        "totalEarned": { "type": "number" },
+        "totalWithdrawn": { "type": "number" },
+        "currency": { "type": "string", "enum": ["BDT"] },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "availableBalance", "pendingBalance", "totalEarned", "totalWithdrawn", "currency"]
+    },
+    "Offer": {
+      "title": "Earning Offer",
+      "description": "Third party offerwall or survey task",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 500 },
+        "category": { "type": "string", "enum": ["app", "survey", "game", "featured"] },
+        "rewardBDT": { "type": "number" },
+        "estimatedMinutes": { "type": "number" },
+        "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+        "provider": { "type": "string", "maxLength": 64 },
+        "status": { "type": "string", "enum": ["active", "paused", "ended"] }
+      },
+      "required": ["id", "title", "category", "rewardBDT", "status"]
+    },
+    "Withdrawal": {
+      "title": "Withdrawal Request",
+      "description": "Cashout request via bKash, Nagad, or Rocket",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "amount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["bKash", "Nagad", "Rocket"] },
+        "accountNumber": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "enum": ["pending", "processing", "paid", "rejected"] },
+        "createdAt": { "type": "string" },
+        "processedAt": { "type": "string" },
+        "transactionId": { "type": "string", "maxLength": 64 },
+        "rejectReason": { "type": "string", "maxLength": 200 }
+      },
+      "required": ["id", "userId", "amount", "paymentMethod", "accountNumber", "status", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction Record",
+      "description": "Ledger entry for reward or withdrawal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 150 },
+        "type": { "type": "string", "enum": ["earning", "withdrawal", "bonus", "referral"] },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "pending", "rejected"] },
+        "createdAt": { "type": "string" },
+        "referenceId": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 300 }
+      },
+      "required": ["id", "userId", "title", "type", "amount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile store"
+    },
+    "/wallets/{userId}": {
+      "schema": { "$ref": "#/entities/Wallet" },
+      "description": "User monetary balance store"
+    },
+    "/offers/{offerId}": {
+      "schema": { "$ref": "#/entities/Offer" },
+      "description": "Global tasks and offers list"
+    },
+    "/withdrawals/{withdrawalId}": {
+      "schema": { "$ref": "#/entities/Withdrawal" },
+      "description": "Withdrawal requests queue"
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Global transaction ledger"
+    }
+  }
+}
