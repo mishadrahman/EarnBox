@@ -64,18 +64,19 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
 
   // User tier bonus multiplier
   let bonusMultiplier = 1.0;
-  if (user.accountTier === 'vip') bonusMultiplier = 1.2;
-  else if (user.accountTier === 'master') bonusMultiplier = 1.4;
+  if (user.accountTier === 'basic_10') bonusMultiplier = 1.1;
+  else if (user.accountTier === 'vip') bonusMultiplier = 1.25;
+  else if (user.accountTier === 'master') bonusMultiplier = 1.5;
 
   const today = new Date().toLocaleDateString('en-GB');
   const todaySubmissionsCount = mySubmissions.filter((s) => s.submittedAt.startsWith(today)).length;
 
-  let dailyLimit = 1; // free
-  if (user.accountTier === 'active') dailyLimit = 5;
-  else if (user.accountTier === 'vip') dailyLimit = 20;
+  let dailyLimit = 15; // free active starter
+  if (user.accountTier === 'basic_10') dailyLimit = 25;
+  else if (user.accountTier === 'vip') dailyLimit = 40;
   else if (user.accountTier === 'master') dailyLimit = 999;
 
-  const isActivated = user.accountTier === 'active' || user.accountTier === 'vip' || user.accountTier === 'master';
+  const isActivated = true; // All users are active
 
   const categories: { id: OfferCategory; label: string }[] = [
     { id: 'all', label: 'All Offers' },
@@ -114,7 +115,7 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
           }`}
         >
           <Flame className="w-3.5 h-3.5 text-amber-300" />
-          <span>ক্রিয়েট কাজ</span>
+          <span>মাইক্রো টাস্ক</span>
         </button>
 
         <button
@@ -159,7 +160,7 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
         </button>
       </div>
 
-      {/* TAB 1: High Demand Account Creation Micro-Jobs (FB, TG, WA, Gmail) */}
+      {/* TAB 1: Micro-Jobs (Telegram, YouTube, Web Code, FB, App) */}
       {activeTab === 'create_work' && (
         <div className="space-y-3">
           {/* Daily Task Limit & Plan Status Banner */}
@@ -168,10 +169,11 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
               <div className="flex items-center space-x-1.5">
                 <Crown className="w-3.5 h-3.5 text-amber-400" />
                 <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-300">
-                  {user.accountTier === 'inactive' && 'ফ্রি মেম্বার (Free Plan)'}
-                  {user.accountTier === 'active' && 'স্টার্টার একাউন্ট (Starter Plan)'}
-                  {user.accountTier === 'vip' && 'ভিআইপি প্রো মেম্বার (+২০% বোনাস)'}
-                  {user.accountTier === 'master' && 'মাস্টার মেম্বার (+৪০% বোনাস)'}
+                  {user.accountTier === 'inactive' && 'ফ্রি মেম্বার'}
+                  {user.accountTier === 'active' && 'ফ্রি স্টার্টার (১০০% অ্যাক্টিভ)'}
+                  {user.accountTier === 'basic_10' && 'স্টার্টার প্রো (+১০% বোনাস)'}
+                  {user.accountTier === 'vip' && 'ভিআইপি মেম্বার (+২৫% বোনাস)'}
+                  {user.accountTier === 'master' && 'মাস্টার মেম্বার (+৫০% বোনাস)'}
                 </span>
               </div>
               <p className="text-xs text-slate-200">
@@ -189,7 +191,7 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
               }}
               className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-extrabold text-xs rounded-xl shadow-xs transition-all"
             >
-              প্ল্যান আপগ্রেড
+              বুস্টার প্ল্যান
             </button>
           </div>
 
@@ -210,6 +212,11 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start space-x-3">
                       <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
+                        {job.type === 'tg_channel' && '✈️'}
+                        {job.type === 'youtube_sub' && '▶️'}
+                        {job.type === 'article_code' && '🌐'}
+                        {job.type === 'fb_follow' && '📘'}
+                        {job.type === 'app_review' && '⭐'}
                         {job.type === 'fb_create' && '📘'}
                         {job.type === 'telegram_create' && '✈️'}
                         {job.type === 'whatsapp_create' && '💬'}
@@ -248,7 +255,7 @@ export const TasksScreen: React.FC<TasksScreenProps> = ({
 
                   <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                     <div className="text-[10px] text-slate-400">
-                      দৈনিক সর্বোচ্চ: {job.dailyLimitPerUser} টি একাউন্ট
+                      দৈনিক সর্বোচ্চ: {job.dailyLimitPerUser} টি টাস্ক
                     </div>
 
                     <button

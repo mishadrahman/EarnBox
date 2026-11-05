@@ -108,21 +108,26 @@ export const MicroJobModal: React.FC<MicroJobModalProps> = ({
       <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92vh] overflow-y-auto no-scrollbar flex flex-col">
         {/* Header */}
         <div className="sticky top-0 bg-white/95 backdrop-blur-md px-5 py-3.5 border-b border-slate-100 flex items-center justify-between z-10">
-          <div className="flex items-center space-x-2">
-            <span className="text-xl">
+          <div className="flex items-center space-x-2 min-w-0">
+            <span className="text-xl shrink-0">
+              {job.type === 'tg_channel' && '✈️'}
+              {job.type === 'youtube_sub' && '▶️'}
+              {job.type === 'article_code' && '🌐'}
+              {job.type === 'fb_follow' && '📘'}
+              {job.type === 'app_review' && '⭐'}
               {job.type === 'fb_create' && '📘'}
               {job.type === 'telegram_create' && '✈️'}
               {job.type === 'whatsapp_create' && '💬'}
               {job.type === 'gmail_create' && '📧'}
             </span>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <h3 className="font-extrabold text-sm text-slate-900">{job.titleBn}</h3>
-                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1.5 flex-wrap">
+                <h3 className="font-extrabold text-sm text-slate-900 truncate">{job.titleBn}</h3>
+                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
                   {job.demandTag}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 line-clamp-1">{job.shortDesc}</p>
+              <p className="text-[11px] text-slate-500 line-clamp-1 truncate">{job.shortDesc}</p>
             </div>
           </div>
 
@@ -131,7 +136,7 @@ export const MicroJobModal: React.FC<MicroJobModalProps> = ({
               triggerHaptic('light');
               handleClose();
             }}
-            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
@@ -239,10 +244,49 @@ export const MicroJobModal: React.FC<MicroJobModalProps> = ({
                 </div>
               )}
 
+              {/* Target Link Action Button */}
+              {job.targetUrl && (
+                <a
+                  href={job.targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => triggerHaptic('selection')}
+                  className="bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 p-3 rounded-2xl flex items-center justify-between text-emerald-900 transition-all group active:scale-[0.99]"
+                >
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                      GO
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        টাস্কের লিংক ওপেন করুন
+                      </div>
+                      <div className="text-[10px] text-slate-500">
+                        এখানে ক্লিক করে স্পনসর পেজে গিয়ে কাজটি করুন
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs font-bold text-emerald-700">
+                    <span>ওপেন</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </a>
+              )}
+
+              {/* Instant Auto-Verification Badge */}
+              {job.autoVerify && (
+                <div className="bg-sky-50 border border-sky-200 rounded-2xl p-2.5 flex items-center space-x-2 text-sky-900 text-xs">
+                  <Sparkles className="w-4 h-4 text-sky-600 shrink-0" />
+                  <span className="font-semibold text-[11px]">
+                    ইনস্ট্যান্ট অটো-পেমেন্ট: সঠিক ৬-সংখ্যার সিক্রেট কোড দিলে সাথে সাথে কোনো অপেক্ষা ছাড়াই ব্যালেন্স জমা হবে!
+                  </span>
+                </div>
+              )}
+
               {/* Submission Form */}
               <form onSubmit={handleSubmit} className="space-y-3 pt-1">
                 <div className="text-xs font-bold text-slate-900 flex items-center space-x-1">
-                  <span>তৈরি করা একাউন্টের তথ্য জমা দিন:</span>
+                  <span>কাজের প্রমাণ / প্রুফ সাবমিট করুন:</span>
                 </div>
 
                 {job.submissionFields.map((field) => (

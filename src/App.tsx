@@ -169,25 +169,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Simulation / Browser Environment Banner */}
-      {!isInsideTelegram() && (
-        <div className="bg-emerald-950 text-emerald-200 text-[10px] px-3 py-1 font-semibold flex items-center justify-between border-b border-emerald-800">
-          <div className="flex items-center space-x-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Telegram WebApp Mode (Preview Simulator)</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <span className="text-emerald-400 font-mono">BD ৳ BDT • Firestore</span>
-            <button
-              onClick={navigateToAdmin}
-              className="text-amber-400 hover:text-amber-300 font-mono font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30 transition-colors"
-            >
-              Portal: /admin
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* App Header */}
       <Header
         user={user}
@@ -288,6 +269,7 @@ export default function App() {
                 }}
                 onOpenAdvisor={() => setIsAdvisorOpen(true)}
                 onOpenActivation={() => setIsActivationOpen(true)}
+                onToggleAdmin={navigateToAdmin}
               />
             )}
           </>

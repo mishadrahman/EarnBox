@@ -90,34 +90,24 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="flex items-center justify-between gap-3">
           <div className="space-y-1 min-w-0 flex-1">
             <div className="flex items-center space-x-1.5 flex-wrap">
-              <span className="bg-amber-400 text-slate-950 text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
-                {isPendingActivation ? 'Under Review' : isActivated ? 'Active Member' : 'Account Status'}
+              <span className="bg-emerald-500 text-slate-950 text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+                Active Member
               </span>
               <span className="text-amber-300 text-xs font-bold shrink-0">
-                {isPendingActivation
-                  ? 'TrxID Submitted'
-                  : isActivated
-                  ? user.accountTier === 'master'
-                    ? 'Master Team Plan (+40%)'
-                    : user.accountTier === 'vip'
-                    ? 'VIP Pro Plan (+20%)'
-                    : 'Starter Active'
-                  : 'Activation ৳10'}
+                {user.accountTier === 'master'
+                  ? 'Master Team Plan (+50%)'
+                  : user.accountTier === 'vip'
+                  ? 'VIP Earner Plan (+25%)'
+                  : user.accountTier === 'basic_10'
+                  ? 'Starter Pro Plan (+10%)'
+                  : '১০০% ফ্রি অ্যাকাউন্ট'}
               </span>
             </div>
             <h3 className="text-xs sm:text-sm font-extrabold tracking-tight truncate leading-tight">
-              {isPendingActivation
-                ? 'Verifying your bKash/Nagad TrxID'
-                : isActivated
-                ? 'Withdrawals Unlocked & Verified'
-                : 'Activate Account for ৳10 & Get ৳5 Cashback!'}
+              বিকাশ ও নগদ উইথড্র সুবিধা সক্রিয়
             </h3>
             <p className="text-[11px] text-slate-300 truncate leading-tight">
-              {isPendingActivation
-                ? 'Admin review takes 15–30 mins. Unlocks withdrawals.'
-                : isActivated
-                ? 'Tap to view membership plans and daily limits.'
-                : 'Enables bKash/Nagad cashouts and verified status.'}
+              কাজ করে ৫০ টাকা হলেই বিকাশ বা নগদে ক্যাশআউট করতে পারবেন।
             </p>
           </div>
 
@@ -152,7 +142,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="flex items-center space-x-1.5">
             <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
             <h3 className="text-xs sm:text-sm font-extrabold text-slate-900">
-              হট ট্রেন্ডিং কাজ (Account Create)
+              স্পনসর মাইক্রো টাস্ক (Micro Tasks)
             </h3>
           </div>
           <button
@@ -183,6 +173,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             >
               <div className="flex items-center justify-between">
                 <span className="text-lg">
+                  {job.type === 'tg_channel' && '✈️'}
+                  {job.type === 'youtube_sub' && '▶️'}
+                  {job.type === 'article_code' && '🌐'}
+                  {job.type === 'fb_follow' && '📘'}
+                  {job.type === 'app_review' && '⭐'}
                   {job.type === 'fb_create' && '📘'}
                   {job.type === 'telegram_create' && '✈️'}
                   {job.type === 'whatsapp_create' && '💬'}

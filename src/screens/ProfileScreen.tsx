@@ -129,6 +129,22 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
         },
       ],
     },
+    ...(onToggleAdmin
+      ? [
+          {
+            title: 'System & Control',
+            items: [
+              {
+                id: 'admin_portal',
+                label: 'Admin Control Portal',
+                desc: 'Open /admin panel to verify submissions & cashouts',
+                icon: ShieldCheck,
+                action: () => onToggleAdmin(),
+              },
+            ],
+          },
+        ]
+      : []),
   ];
 
   return (

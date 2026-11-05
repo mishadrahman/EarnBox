@@ -13,7 +13,8 @@ export type TransactionType =
   | 'referral'
   | 'activation_cashback'
   | 'lucky_spin'
-  | 'micro_job_payout';
+  | 'micro_job_payout'
+  | 'adjustment';
 
 export type TransactionStatus = 'completed' | 'pending' | 'rejected';
 
@@ -21,9 +22,18 @@ export type OfferDifficulty = 'Easy' | 'Medium' | 'Hard';
 
 export type OfferStatus = 'available' | 'in_progress' | 'completed' | 'paused';
 
-export type AccountTier = 'inactive' | 'pending_activation' | 'active' | 'vip' | 'master';
+export type AccountTier = 'inactive' | 'pending_activation' | 'active' | 'basic_10' | 'vip' | 'master';
 
-export type MicroJobType = 'fb_create' | 'telegram_create' | 'whatsapp_create' | 'gmail_create';
+export type MicroJobType =
+  | 'tg_channel'
+  | 'youtube_sub'
+  | 'fb_follow'
+  | 'article_code'
+  | 'app_review'
+  | 'fb_create'
+  | 'telegram_create'
+  | 'whatsapp_create'
+  | 'gmail_create';
 
 export interface MicroJob {
   id: string;
@@ -32,14 +42,17 @@ export interface MicroJob {
   titleBn: string;
   shortDesc: string;
   payoutBDT: number;
-  ownerResellRateBDT: number; // What owner gets reselling account (e.g. ৳30)
+  ownerResellRateBDT: number; // What advertiser/sponsor pays you (e.g. ৳3)
   estimatedMinutes: number;
   dailyLimitPerUser: number;
-  category: 'account_create';
+  category: 'sponsored_task' | 'web_visit' | 'account_create';
   status: 'active' | 'paused';
-  demandTag: 'Hot' | 'Trending' | 'High Demand';
+  demandTag: 'Hot' | 'Trending' | 'High Demand' | 'Instant';
   instructionsBn: string[];
   requirements: string[];
+  targetUrl?: string;
+  secretCode?: string; // Optional auto-verification code (e.g. 6-digit code on article)
+  autoVerify?: boolean; // If true, matches secretCode for instant reward
   submissionFields: {
     key: 'accountIdentifier' | 'password' | 'twoFactorCodeOrOtp' | 'additionalNotes';
     labelBn: string;

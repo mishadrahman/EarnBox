@@ -47,7 +47,7 @@ const initialProfile: UserProfile = {
   photoUrl: tgUser.photo_url,
   referralCode: `EB${String(tgUser.id).slice(-4)}`,
   accountStatus: 'active',
-  accountTier: 'inactive', // Fresh inactive tier (10 Tk activation)
+  accountTier: 'active', // 100% Free Start - Users can earn & withdraw without forced fee
   memberSince: 'Today',
   savedPaymentNumber: '',
   savedPaymentMethod: 'bKash',
@@ -160,213 +160,173 @@ const initialOffers: Offer[] = [
   },
 ];
 
-// Trending high-demand micro-jobs (FB Create, Telegram Create, WhatsApp Create, Gmail Create)
+// High-converting, realistic tasks (Sponsored Telegram, YouTube, Website visits with auto-verification, FB like, App review)
 const initialMicroJobs: MicroJob[] = [
   {
-    id: 'job_fb_01',
-    type: 'fb_create',
-    title: 'Facebook Account Creation Work',
-    titleBn: 'ফেসবুক অ্যাকাউন্ট ক্রিয়েট কাজ',
-    shortDesc: 'নতুন ফ্রেশ ফেসবুক আইডি খুলে লগইন ডিটেইলস জমা দিন ও রিওয়ার্ড নিন',
-    payoutBDT: 12.0,
-    ownerResellRateBDT: 30.0,
-    estimatedMinutes: 4,
-    dailyLimitPerUser: 5,
-    category: 'account_create',
+    id: 'job_tg_join_01',
+    type: 'tg_channel',
+    title: 'Join EarnBox Official Telegram Channel',
+    titleBn: 'অফিসিয়াল টেলিগ্রাম চ্যানেলে জয়েন করুন',
+    shortDesc: 'টেলিগ্রাম চ্যানেলে জয়েন হয়ে আপনার টেলিগ্রাম ইউজারনেম দিয়ে পেমেন্ট নিন',
+    payoutBDT: 2.0,
+    ownerResellRateBDT: 4.5,
+    estimatedMinutes: 1,
+    dailyLimitPerUser: 1,
+    category: 'sponsored_task',
     status: 'active',
     demandTag: 'Hot',
+    targetUrl: 'https://t.me/EarnBoxOfficial',
     instructionsBn: [
-      'ক্রোম বা অন্য ব্রাউজারে ইনকগনিটো (Incognito) মোড অন করুন।',
-      'যেকোনো ইংলিশ বা বাংলা ফ্রেশ নাম এবং ইমেইল/নম্বর দিয়ে নতুন ফেসবুক একাউন্ট সাইন-আপ করুন।',
-      'প্রোফাইলে যেকোনো স্বাভাবিক ছবি ও বায়ো যুক্ত করুন।',
-      'লগইন ইমেইল/নম্বর, পাসওয়ার্ড এবং (থাকলে) 2FA সিক্রেট কোড নিচে জমা দিন।',
-      'এডমিন চেক করে অবিলম্বে আপনার ওয়ালেটে ৳১২ টাকা যোগ করে দেবে।',
+      'নিচের "চ্যানেল লিংক ওপেন করুন" বাটনে ক্লিক করে আমাদের টেলিগ্রাম চ্যানেলে জয়েন হোন।',
+      'চ্যানেলে যুক্ত থেকে আপনার টেলিগ্রাম ইউজারনেম (@username) নিচে লিখে সাবমিট করুন।',
+      'এডমিন চেক করে আপনার ওয়ালেটে ৳২ টাকা যোগ করে দেবে।',
     ],
-    requirements: ['নতুন ও সক্রিয় ফেসবুক আইডি', 'প্রোফাইল পিকচার থাকতে হবে', 'সঠিক পাসওয়ার্ড'],
+    requirements: ['চ্যানেলে মেম্বার হিসেবে থাকতে হবে', 'সঠিক টেলিগ্রাম ইউজারনেম দিতে হবে'],
     submissionFields: [
       {
         key: 'accountIdentifier',
-        labelBn: 'ফেসবুক লগইন ইমেইল বা ফোন নম্বর',
-        placeholder: 'e.g. user123@gmail.com বা 017xxxxxxxx',
+        labelBn: 'আপনার টেলিগ্রাম ইউজারনেম (@ সহ)',
+        placeholder: '@your_username',
         type: 'text',
         required: true,
-      },
-      {
-        key: 'password',
-        labelBn: 'ফেসবুক পাসওয়ার্ড',
-        placeholder: 'e.g. FbPass#2026',
-        type: 'text',
-        required: true,
-      },
-      {
-        key: 'twoFactorCodeOrOtp',
-        labelBn: '2FA ব্যাকআপ কোড / সিক্রেট কি (যদি থাকে)',
-        placeholder: 'e.g. 123456 বা 2FA Secret',
-        type: 'text',
-        required: false,
-        helperTextBn: '2FA কোড দিলে আইডি দ্রুত এপ্রুভ হয়',
       },
       {
         key: 'additionalNotes',
-        labelBn: 'প্রোফাইল লিংক বা অতিরিক্ত নোট (ঐচ্ছিক)',
-        placeholder: 'https://facebook.com/...',
+        labelBn: 'অতিরিক্ত নোট বা মন্তব্য (ঐচ্ছিক)',
+        placeholder: 'জয়েন করা হয়েছে...',
         type: 'text',
         required: false,
       },
     ],
   },
   {
-    id: 'job_tg_01',
-    type: 'telegram_create',
-    title: 'Telegram Account Creation Work',
-    titleBn: 'টেলিগ্রাম অ্যাকাউন্ট ক্রিয়েট কাজ',
-    shortDesc: 'সিম বা ভার্চুয়াল নম্বর দিয়ে টেলিগ্রাম আইডি খুলে লগইন কোড দিন',
-    payoutBDT: 18.0,
-    ownerResellRateBDT: 45.0,
-    estimatedMinutes: 3,
-    dailyLimitPerUser: 5,
-    category: 'account_create',
+    id: 'job_yt_sub_01',
+    type: 'youtube_sub',
+    title: 'Subscribe YouTube Channel & Watch 1 Min',
+    titleBn: 'ইউটিউব চ্যানেল সাবস্ক্রাইব ও ১ মিনিট ভিডিও দেখুন',
+    shortDesc: 'স্পনসর ইউটিউব চ্যানেল সাবস্ক্রাইব করে আপনার জিমেইল নাম সাবমিট করুন',
+    payoutBDT: 2.5,
+    ownerResellRateBDT: 5.0,
+    estimatedMinutes: 2,
+    dailyLimitPerUser: 2,
+    category: 'sponsored_task',
     status: 'active',
     demandTag: 'Trending',
+    targetUrl: 'https://youtube.com',
     instructionsBn: [
-      'নতুন একটি সিম কার্ড দিয়ে টেলিগ্রাম অ্যাপ বা টেলিগ্রাম ওয়েবে সাইন-আপ করুন।',
-      'একাউন্টে যেকোনো ইউজারনেম ও স্বাভাবিক নাম সেট করুন।',
-      'আপনার ফোন নম্বরটি কান্ট্রি কোড সহ (+880...) নিচে লিখুন।',
-      'এডমিন লগইন ট্রাই করলে আপনার ফোনে আসা ৫-সংখ্যার লগইন কোড ও 2FA দিন।',
-      'ভেরিফিকেশন সম্পন্ন হলেই ওয়ালেটে ৳১৮ টাকা ক্রেডিট হবে।',
+      'নিচের ইউটিউব লিংকে ক্লিক করে চ্যানেলে যান।',
+      'যেকোনো একটি ভিডিও কমপক্ষে ১ মিনিট দেখুন এবং চ্যানেলটি সাবস্ক্রাইব ও লাইক করুন।',
+      'আপনার ইউটিউব প্রোফাইল নাম বা জিমেইল নাম নিচে লিখে সাবমিট করুন।',
     ],
-    requirements: ['ফ্রেশ সিম নম্বর (আগে ব্যান হয়নি)', 'এডমিনকে ৫ মিনিটের মধ্যে ওটিপি প্রদান', 'সঠিক কান্ট্রি কোড'],
+    requirements: ['চ্যানেল সাবস্ক্রাইব থাকতে হবে', 'সঠিক প্রোফাইল নাম'],
     submissionFields: [
       {
         key: 'accountIdentifier',
-        labelBn: 'টেলিগ্রাম ফোন নম্বর (+৮৮০ সহ)',
-        placeholder: '+88017xxxxxxxx',
-        type: 'tel',
-        required: true,
-      },
-      {
-        key: 'twoFactorCodeOrOtp',
-        labelBn: 'টেলিগ্রাম লগইন ওটিপি / কোড',
-        placeholder: 'e.g. 74821',
+        labelBn: 'আপনার ইউটিউব একাউন্ট বা জিমেইল নাম',
+        placeholder: 'e.g. Tanvir Hasan বা tanvir123@gmail.com',
         type: 'text',
         required: true,
-        helperTextBn: 'লগইনের জন্য কোড প্রয়োজন',
-      },
-      {
-        key: 'password',
-        labelBn: '2-Step Verification পাসওয়ার্ড (যদি থাকে)',
-        placeholder: 'e.g. TgPass@88',
-        type: 'text',
-        required: false,
       },
       {
         key: 'additionalNotes',
-        labelBn: 'ইউজারনেম বা অতিরিক্ত নোট',
-        placeholder: '@username',
+        labelBn: 'ভিডিওর নাম বা মন্তব্য (ঐচ্ছিক)',
+        placeholder: 'ভিডিও লাইক করা হয়েছে...',
         type: 'text',
         required: false,
       },
     ],
   },
   {
-    id: 'job_wa_01',
-    type: 'whatsapp_create',
-    title: 'WhatsApp Account Creation & Link',
-    titleBn: 'হোয়াটসঅ্যাপ একাউন্ট ক্রিয়েট / লিংক কাজ',
-    shortDesc: 'হোয়াটসঅ্যাপে নম্বর চালু করে লিংক কোড সাবমিট করে আয় করুন',
-    payoutBDT: 15.0,
-    ownerResellRateBDT: 38.0,
-    estimatedMinutes: 2,
+    id: 'job_web_code_01',
+    type: 'article_code',
+    title: 'Visit Sponsor Blog & Collect Secret Code',
+    titleBn: 'ব্লগ ভিজিট ও ইনস্ট্যান্ট সিক্রেট কোড সংগ্রহ (অটো পেমেন্ট)',
+    shortDesc: 'ওয়েবসাইটে ২০-৩০ সেকেন্ড অবস্থান করে প্রাপ্ত কোডটি দিন, সাথে সাথে টাকা পাবেন!',
+    payoutBDT: 1.5,
+    ownerResellRateBDT: 3.5,
+    estimatedMinutes: 1,
     dailyLimitPerUser: 5,
-    category: 'account_create',
+    category: 'web_visit',
+    status: 'active',
+    demandTag: 'Instant',
+    targetUrl: 'https://google.com',
+    secretCode: '849201',
+    autoVerify: true,
+    instructionsBn: [
+      'নিচের "ওয়েবসাইট ভিজিট করুন" বাটনে ক্লিক করে স্পনসর আর্টিকেলে যান।',
+      'পেজে ২০-৩০ সেকেন্ড অপেক্ষা করুন এবং স্ক্রোল করুন।',
+      'আর্টিকেলের নিচে প্রদর্শিত ৬-সংখ্যার সিক্রেট ভেরিফিকেশন কোডটি (যেমন: 849201) কপি করুন।',
+      'নিচের ঘরে কোডটি দিয়ে সাবমিট করলেই কোনো অপেক্ষা ছাড়া সাথে সাথে ব্যালেন্স মেইন ওয়ালেটে যোগ হবে!',
+    ],
+    requirements: ['সঠিক ৬-সংখ্যার সিক্রেট কোড', 'পেজে ৩০ সেকেন্ড থাকতে হবে'],
+    submissionFields: [
+      {
+        key: 'accountIdentifier',
+        labelBn: '৬-সংখ্যার সিক্রেট কোড (Secret Code)',
+        placeholder: 'e.g. 849201',
+        type: 'text',
+        required: true,
+        helperTextBn: 'সঠিক কোড দিলে এক সেকেন্ডের মধ্যে ব্যালেন্স জমা হবে',
+      },
+    ],
+  },
+  {
+    id: 'job_fb_follow_01',
+    type: 'fb_follow',
+    title: 'Like & Follow Facebook Page',
+    titleBn: 'ফেসবুক পেজ লাইক ও ফলো করুন',
+    shortDesc: 'স্পনসর ফেসবুক পেজে লাইক ও ফলো দিয়ে আপনার ফেসবুক নাম জমা দিন',
+    payoutBDT: 1.8,
+    ownerResellRateBDT: 4.0,
+    estimatedMinutes: 1,
+    dailyLimitPerUser: 2,
+    category: 'sponsored_task',
     status: 'active',
     demandTag: 'High Demand',
+    targetUrl: 'https://facebook.com',
     instructionsBn: [
-      'হোয়াটসঅ্যাপে আপনার নতুন সিম দিয়ে রেজিস্ট্রেশন সম্পন্ন করুন।',
-      'অথবা লিঙ্কড ডিভাইস (Linked Device) কোড ব্যবহার করে লিংক কোড শেয়ার করুন।',
-      'আপনার হোয়াটসঅ্যাপ ফোন নম্বর ও ওটিপি/লিংক কোড নিচে সাবমিট করুন।',
-      'এডমিন সফলভাবে কানেক্ট করলেই সাথে সাথে ৳১৫ টাকা বোনাস পাবেন।',
+      'ফেসবুক পেজের লিংকে ক্লিক করে পেজটি ওপেন করুন।',
+      'পেজটিতে Like এবং Follow বাটনে ক্লিক করুন।',
+      'আপনার ফেসবুক প্রোফাইলের নাম নিচে লিখে সাবমিট করুন।',
     ],
-    requirements: ['সক্রিয় হোয়াটসঅ্যাপ নম্বর', 'সঠিক ৬-সংখ্যার ওটিপি বা লিংক কোড'],
+    requirements: ['পেজটি ফলো থাকতে হবে', 'সঠিক ফেসবুক নাম'],
     submissionFields: [
       {
         key: 'accountIdentifier',
-        labelBn: 'হোয়াটসঅ্যাপ মোবাইল নম্বর',
-        placeholder: '018xxxxxxxx বা +88018xxxxxxxx',
-        type: 'tel',
-        required: true,
-      },
-      {
-        key: 'twoFactorCodeOrOtp',
-        labelBn: 'হোয়াটসঅ্যাপ ভেরিফিকেশন কোড বা লিংক কোড',
-        placeholder: 'e.g. 491-032',
+        labelBn: 'আপনার ফেসবুক প্রোফাইল নাম',
+        placeholder: 'e.g. Tanvir Hasan',
         type: 'text',
         required: true,
-      },
-      {
-        key: 'password',
-        labelBn: 'টু-স্টেপ পিন (যদি সেট করে থাকেন)',
-        placeholder: 'e.g. 123456',
-        type: 'text',
-        required: false,
-      },
-      {
-        key: 'additionalNotes',
-        labelBn: 'অতিরিক্ত তথ্য (ঐচ্ছিক)',
-        placeholder: 'নোট লিখুন...',
-        type: 'text',
-        required: false,
       },
     ],
   },
   {
-    id: 'job_gmail_01',
-    type: 'gmail_create',
-    title: 'Fresh Gmail Account Work',
-    titleBn: 'ফ্রেশ জিমেইল (Gmail) ক্রিয়েট কাজ',
-    shortDesc: 'মোবাইল দিয়ে ফোন নম্বর ছাড়া জিমেইল খুলে ইমেইল ও পাসওয়ার্ড জমা দিন',
-    payoutBDT: 8.0,
-    ownerResellRateBDT: 20.0,
-    estimatedMinutes: 2,
-    dailyLimitPerUser: 10,
-    category: 'account_create',
+    id: 'job_app_review_01',
+    type: 'app_review',
+    title: 'Install App & 5-Star Play Store Review',
+    titleBn: 'প্লে-স্টোর অ্যাপ ইনস্টল ও ৫-স্টার রিভিউ',
+    shortDesc: 'প্লে-স্টোর থেকে অ্যাপ ইনস্টল করে ৫-স্টার রিভিউ দিয়ে প্লে-স্টোর নাম দিন',
+    payoutBDT: 6.0,
+    ownerResellRateBDT: 15.0,
+    estimatedMinutes: 3,
+    dailyLimitPerUser: 1,
+    category: 'sponsored_task',
     status: 'active',
     demandTag: 'Hot',
+    targetUrl: 'https://play.google.com',
     instructionsBn: [
-      'ব্রাউজারে Incognito মোডে accounts.google.com খুলুন।',
-      'যেকোনো ইংলিশ নাম দিয়ে একটি নতুন জিমেইল খুলুন (ফোন নম্বর ছাড়া Skip দিন)।',
-      'পাসওয়ার্ড দিন সহজ ও স্ট্রং যেমন: BdEarn#2026',
-      'জিমেইল এড্রেস ও পাসওয়ার্ড নিচে লিখে সাবমিট করুন।',
+      'প্লে-স্টোর লিংকে গিয়ে অ্যাপটি আপনার মোবাইলে ইনস্টল করুন।',
+      'অ্যাপটিতে ৫-স্টার (⭐⭐⭐⭐⭐) রেটিং দিয়ে একটি পজিটিভ রিভিউ (যেমন: Very good app) লিখুন।',
+      'আপনার গুগল প্লে-স্টোরের রিভিউয়ার নাম নিচে লিখে সাবমিট করুন।',
     ],
-    requirements: ['কোনো ফোন নম্বর অ্যাড করা যাবে না', 'সঠিক পাসওয়ার্ড দিতে হবে'],
+    requirements: ['অ্যাপটি ইনস্টল ও ৫-স্টার রিভিউ হতে হবে', 'সঠিক প্লে স্টোর নাম'],
     submissionFields: [
       {
         key: 'accountIdentifier',
-        labelBn: 'জিমেইল এড্রেস (Gmail Address)',
-        placeholder: 'example123@gmail.com',
-        type: 'email',
-        required: true,
-      },
-      {
-        key: 'password',
-        labelBn: 'জিমেইল পাসওয়ার্ড',
-        placeholder: 'BdEarn#2026',
+        labelBn: 'আপনার প্লে-স্টোর / গুগল একাউন্টের নাম',
+        placeholder: 'e.g. Tanvir Hasan',
         type: 'text',
         required: true,
-      },
-      {
-        key: 'twoFactorCodeOrOtp',
-        labelBn: 'রিকভারি ইমেইল (যদি দিয়ে থাকেন)',
-        placeholder: 'recovery@mail.com',
-        type: 'text',
-        required: false,
-      },
-      {
-        key: 'additionalNotes',
-        labelBn: 'অতিরিক্ত নোট (ঐচ্ছিক)',
-        placeholder: '',
-        type: 'text',
-        required: false,
       },
     ],
   },
@@ -379,81 +339,82 @@ const initialTransactions: Transaction[] = [];
 const initialReferrals: ReferralFriend[] = [];
 const initialMicroJobSubmissions: MicroJobSubmission[] = [];
 
-// Membership Plans
+// Membership Plans (Free Starter is 100% active; VIP/Master are optional earnings boosters)
 const initialMembershipPlans: MembershipPlan[] = [
   {
     id: 'free',
-    name: 'Free Trial',
-    nameBn: 'ফ্রি ট্রায়াল (ডিফল্ট)',
+    name: 'Free Starter',
+    nameBn: 'ফ্রি স্টার্টার (১০০% ফ্রি ও অ্যাক্টিভ)',
     priceBDT: 0,
     cashbackBDT: 0,
-    dailyTaskLimit: 1,
-    rateBonusPercent: 0,
-    canWithdraw: false,
-    minWithdrawalBDT: 50,
-    payoutSpeed: 'লকড',
-    features: [
-      'দিনে মাত্র ১টি কাজ করার সুযোগ',
-      'উইথড্র অপশন লকড (সক্রিয় করতে ৳১০ ফি)',
-      'রেগুলার টাস্ক রেট',
-    ],
-  },
-  {
-    id: 'basic_10',
-    name: 'Starter Active',
-    nameBn: 'স্টার্টার অ্যাক্টিভ (৳১০)',
-    priceBDT: 10,
-    cashbackBDT: 5,
-    dailyTaskLimit: 5,
+    dailyTaskLimit: 15,
     rateBonusPercent: 0,
     canWithdraw: true,
     minWithdrawalBDT: 50,
     payoutSpeed: '১২-২৪ ঘণ্টা',
     isPopular: true,
     features: [
-      'আজীবন অ্যাক্টিভ একাউন্ট',
-      'সাথে সাথে ৳৫ ক্যাশব্যাক বোনাস',
-      'প্রতিদিন ৫টি অ্যাকাউন্ট ক্রিয়েট কাজ',
+      'কোনো এক্টিভেশন ফি নেই - ১০০% ফ্রি একাউন্ট',
+      'প্রতিদিন ১৫টি স্পনসর ও সোশ্যাল টাস্ক',
       'বিকাশ, নগদ ও রকেটে সর্বনিম্ন ৳৫০ ক্যাশআউট',
-      'সোশ্যাল ও অফারওয়াল এক্সেস',
+      'প্রতিদিনের লাকি স্পিন ও ডেইলি চেক-ইন বোনাস',
+      'রেগুলার আর্নিং রেট',
+    ],
+  },
+  {
+    id: 'basic_10',
+    name: 'Starter Pro',
+    nameBn: 'স্টার্টার প্রো বুস্টার (৳১০)',
+    priceBDT: 10,
+    cashbackBDT: 5,
+    dailyTaskLimit: 25,
+    rateBonusPercent: 10,
+    canWithdraw: true,
+    minWithdrawalBDT: 50,
+    payoutSpeed: '৮-১২ ঘণ্টা',
+    features: [
+      'সব কাজে +১০% অতিরিক্ত বোনাস ইনকাম',
+      'সাথে সাথে ৳৫ ক্যাশব্যাক বোনাস',
+      'প্রতিদিন ২৫টি টাস্ক করার সুযোগ',
+      'ফাস্ট ভেরিফিকেশন ও উইথড্রল',
     ],
   },
   {
     id: 'vip_50',
-    name: 'VIP Pro Worker',
-    nameBn: 'ভিআইপি প্রো প্ল্যান (৳৫০)',
-    priceBDT: 50,
-    cashbackBDT: 15,
-    dailyTaskLimit: 20,
-    rateBonusPercent: 20,
+    name: 'VIP Earner',
+    nameBn: 'ভিআইপি আর্নার প্ল্যান (৳৩০)',
+    priceBDT: 30,
+    cashbackBDT: 10,
+    dailyTaskLimit: 40,
+    rateBonusPercent: 25,
     canWithdraw: true,
     minWithdrawalBDT: 50,
-    payoutSpeed: '২ ঘণ্টার মধ্যে ফাস্ট',
+    payoutSpeed: '২-৪ ঘণ্টার মধ্যে ফাস্ট',
     features: [
-      'প্রতিদিন ২০টি অ্যাকাউন্ট ক্রিয়েট কাজ',
-      'সাথে সাথে ৳১৫ ক্যাশব্যাক বোনাস',
-      'প্রতিটি কাজে +২০% এক্সট্রা বোনাস ইনকাম',
+      'সব কাজে +২৫% এক্সট্রা বোনাস ইনকাম',
+      'সাথে সাথে ৳১০ ইনস্ট্যান্ট ক্যাশব্যাক',
+      'প্রতিদিন ৪০টি টাস্ক করার সুযোগ',
       '২ ঘণ্টার মধ্যে ফাস্ট বিকাশ/নগদ পেমেন্ট',
       'হাই প্রায়োরিটি ভেরিফিকেশন',
     ],
   },
   {
     id: 'master_100',
-    name: 'Master Earner',
-    nameBn: 'মাস্টার টিম প্ল্যান (৳১০০)',
-    priceBDT: 100,
-    cashbackBDT: 30,
+    name: 'Master Pro',
+    nameBn: 'মাস্টার প্রো টিম (৳৭০)',
+    priceBDT: 70,
+    cashbackBDT: 25,
     dailyTaskLimit: 'Unlimited',
-    rateBonusPercent: 40,
+    rateBonusPercent: 50,
     canWithdraw: true,
     minWithdrawalBDT: 50,
-    payoutSpeed: '১৫ মিনিটে ইনস্ট্যান্ট',
+    payoutSpeed: '১৫-৩০ মিনিটে ইনস্ট্যান্ট',
     features: [
-      'আনলিমিটেড অ্যাকাউন্ট ক্রিয়েট কাজ',
-      'সাথে সাথে ৳৩০ ক্যাশব্যাক বোনাস',
-      'প্রতি কাজে +৪০% এক্সট্রা রেট',
+      'সব কাজে +৫০% ডাবল বোনাস ইনকাম',
+      'আনলিমিটেড টাস্ক করার সুবিধা',
+      'সাথে সাথে ৳২৫ ক্যাশব্যাক বোনাস',
       '১৫ মিনিটে ইনস্ট্যান্ট বিকাশ/নগদ উইথড্র',
-      'স্পেশাল বালক জবস ও ভিআইপি সাপোর্ট',
+      'ভিআইপি প্রায়োরিটি সাপোর্ট',
     ],
   },
 ];
@@ -974,13 +935,40 @@ export class DataService {
     return initialMembershipPlans.find((p) => p.id === planId);
   }
 
-  // Micro Jobs (FB, Telegram, WhatsApp, Gmail Create Work)
+  // Micro Jobs (Sponsored Channels, YouTube, Website visits with code, FB follow, App review)
   static getMicroJobs(): MicroJob[] {
-    return loadData(STORAGE_KEYS.MICRO_JOBS, initialMicroJobs);
+    const list = loadData<MicroJob[]>(STORAGE_KEYS.MICRO_JOBS, initialMicroJobs);
+    // If list has only old account creation jobs, upgrade to realistic tasks
+    const hasRealisticJobs = list.some(
+      (j) => j.type === 'tg_channel' || j.type === 'article_code' || j.type === 'youtube_sub' || j.category === 'sponsored_task'
+    );
+    if (!hasRealisticJobs) {
+      saveData(STORAGE_KEYS.MICRO_JOBS, initialMicroJobs);
+      return initialMicroJobs;
+    }
+    return list;
   }
 
   static getMicroJobById(jobId: string): MicroJob | undefined {
     return this.getMicroJobs().find((j) => j.id === jobId);
+  }
+
+  static addMicroJob(jobData: Omit<MicroJob, 'id'>): MicroJob {
+    const jobs = this.getMicroJobs();
+    const newJob: MicroJob = {
+      ...jobData,
+      id: `job_${Date.now().toString().slice(-6)}`,
+    };
+    jobs.unshift(newJob);
+    saveData(STORAGE_KEYS.MICRO_JOBS, jobs);
+    return newJob;
+  }
+
+  static deleteMicroJob(jobId: string): boolean {
+    const jobs = this.getMicroJobs();
+    const filtered = jobs.filter((j) => j.id !== jobId);
+    saveData(STORAGE_KEYS.MICRO_JOBS, filtered);
+    return true;
   }
 
   static updateMicroJobRate(jobId: string, payoutBDT: number, ownerResellRateBDT: number): boolean {
@@ -1018,27 +1006,35 @@ export class DataService {
     const today = new Date().toLocaleDateString('en-GB');
     const todaySubmissions = mySubmissions.filter((s) => s.submittedAt.startsWith(today));
 
-    let allowedLimit = 1; // free
-    if (profile.accountTier === 'active') allowedLimit = 5;
-    else if (profile.accountTier === 'vip') allowedLimit = 20;
+    let allowedLimit = 15; // default 100% free active account allows 15 tasks/day
+    if (profile.accountTier === 'basic_10') allowedLimit = 25;
+    else if (profile.accountTier === 'vip') allowedLimit = 40;
     else if (profile.accountTier === 'master') allowedLimit = 999;
 
-    if (todaySubmissions.length >= allowedLimit && profile.accountTier === 'inactive') {
+    if (todaySubmissions.length >= allowedLimit && allowedLimit !== 999) {
       return {
         success: false,
-        message: 'ফ্রি একাউন্টে দিনে মাত্র ১টি কাজ করা যায়। দিনে আনলিমিটেড কাজ করতে ৳১০ দিয়ে একাউন্ট একটিভ করুন!',
+        message: `আপনার আজকের দৈনিক লিমিট (${allowedLimit} টি কাজ) শেষ হয়েছে। অতিরিক্ত কাজ করতে ভিআইপি বুস্টারে আপগ্রেড করুন!`,
       };
-    } else if (todaySubmissions.length >= allowedLimit && allowedLimit !== 999) {
-      return {
-        success: false,
-        message: `আপনার আজকের দৈনিক লিমিট (${allowedLimit} টি কাজ) শেষ হয়েছে। অতিরিক্ত কাজ করতে ভিআইপি প্ল্যানে আপগ্রেড করুন!`,
-      };
+    }
+
+    // Auto-verify for Secret Code Article / Website Visit tasks
+    const isAutoVerified = Boolean(job.autoVerify && job.secretCode);
+    if (isAutoVerified) {
+      const submittedCode = (data.accountIdentifier || '').trim();
+      if (submittedCode !== job.secretCode?.trim()) {
+        return {
+          success: false,
+          message: 'ভুল সিক্রেট কোড! অনুগ্রহ করে ওয়েবসাইটে ২০-৩০ সেকেন্ড অপেক্ষা করে প্রাপ্ত সঠিক ৬-সংখ্যার কোডটি দিন।',
+        };
+      }
     }
 
     // Rate calculation with bonus based on plan
     let bonusMultiplier = 1.0;
-    if (profile.accountTier === 'vip') bonusMultiplier = 1.2;
-    else if (profile.accountTier === 'master') bonusMultiplier = 1.4;
+    if (profile.accountTier === 'basic_10') bonusMultiplier = 1.1;
+    else if (profile.accountTier === 'vip') bonusMultiplier = 1.25;
+    else if (profile.accountTier === 'master') bonusMultiplier = 1.5;
 
     const finalReward = Number((job.payoutBDT * bonusMultiplier).toFixed(2));
     const ownerProfit = Number((job.ownerResellRateBDT - finalReward).toFixed(2));
@@ -1057,13 +1053,48 @@ export class DataService {
       additionalNotes: data.additionalNotes,
       rewardBDT: finalReward,
       ownerEstimatedProfitBDT: ownerProfit,
-      status: 'pending',
+      status: isAutoVerified ? 'approved' : 'pending',
       submittedAt: new Date().toLocaleDateString('en-GB') + ', ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      reviewedAt: isAutoVerified ? new Date().toLocaleDateString('en-GB') + ', ' + new Date().toLocaleTimeString('en-US') : undefined,
     };
 
     const allSubmissions = loadData<MicroJobSubmission[]>(STORAGE_KEYS.MICRO_JOB_SUBMISSIONS, initialMicroJobSubmissions);
     allSubmissions.unshift(newSubmission);
     saveData(STORAGE_KEYS.MICRO_JOB_SUBMISSIONS, allSubmissions);
+
+    // If auto-verified, credit wallet immediately without delay!
+    if (isAutoVerified) {
+      const wallet = this.getWallet();
+      this.updateWallet({
+        availableBalance: Number((wallet.availableBalance + finalReward).toFixed(2)),
+        totalEarned: Number((wallet.totalEarned + finalReward).toFixed(2)),
+      });
+
+      const tx: Transaction = {
+        id: `tx_job_${Date.now()}`,
+        userId: profile.id,
+        title: `${job.titleBn} (ইনস্ট্যান্ট পেমেন্ট)`,
+        type: 'micro_job_payout',
+        amount: finalReward,
+        status: 'completed',
+        createdAt: new Date().toLocaleDateString('en-GB') + ', ' + new Date().toLocaleTimeString('en-US'),
+        referenceId: newSubmission.id,
+        description: `Auto-verified secret code: ${data.accountIdentifier}`,
+      };
+      const txs = this.getTransactions();
+      txs.unshift(tx);
+      saveData(STORAGE_KEYS.TRANSACTIONS, txs);
+
+      this.updateUserProfile({
+        completedTasksCount: (profile.completedTasksCount || 0) + 1,
+      });
+
+      return {
+        success: true,
+        message: `অভিনন্দন! আপনার সিক্রেট কোড সঠিক হয়েছে। সাথে সাথে ৳${finalReward} টাকা আপনার মেইন ওয়ালেটে জমা হয়েছে!`,
+        submission: newSubmission,
+      };
+    }
 
     return {
       success: true,
@@ -1204,5 +1235,136 @@ export class DataService {
     }
 
     return true;
+  }
+
+  // Admin User Management
+  static getAllUsers(): (UserProfile & { currentBalance: number; totalEarned: number })[] {
+    const profile = this.getUserProfile();
+    const wallet = this.getWallet();
+
+    const currentWithWallet = {
+      ...profile,
+      currentBalance: wallet.availableBalance,
+      totalEarned: wallet.totalEarned,
+    };
+
+    return [
+      currentWithWallet,
+      {
+        id: 'usr_demo_101',
+        telegramId: '584920194',
+        username: 'shakib_earn99',
+        firstName: 'Shakib',
+        lastName: 'Al Hasan',
+        referralCode: 'EB9912',
+        accountStatus: 'active',
+        accountTier: 'active',
+        memberSince: '2 days ago',
+        savedPaymentNumber: '01799887766',
+        savedPaymentMethod: 'bKash',
+        completedTasksCount: 14,
+        isTelegramUser: true,
+        currentBalance: 72.5,
+        totalEarned: 142.5,
+      },
+      {
+        id: 'usr_demo_102',
+        telegramId: '629104820',
+        username: 'fahim_dhaka',
+        firstName: 'Fahim',
+        lastName: 'Ahmed',
+        referralCode: 'EB4820',
+        accountStatus: 'active',
+        accountTier: 'vip',
+        memberSince: 'Yesterday',
+        savedPaymentNumber: '01855443322',
+        savedPaymentMethod: 'Nagad',
+        completedTasksCount: 28,
+        isTelegramUser: true,
+        currentBalance: 125.0,
+        totalEarned: 310.0,
+      },
+      {
+        id: 'usr_demo_103',
+        telegramId: '719284910',
+        username: 'rakib_tg',
+        firstName: 'Rakibul',
+        lastName: 'Islam',
+        referralCode: 'EB8491',
+        accountStatus: 'active',
+        accountTier: 'pending_activation',
+        memberSince: 'Today',
+        savedPaymentNumber: '01922334455',
+        savedPaymentMethod: 'Rocket',
+        completedTasksCount: 3,
+        isTelegramUser: true,
+        currentBalance: 15.0,
+        totalEarned: 15.0,
+      },
+    ];
+  }
+
+  static toggleMicroJobStatus(jobId: string): boolean {
+    const jobs = this.getMicroJobs();
+    const target = jobs.find((j) => j.id === jobId);
+    if (!target) return false;
+    target.status = target.status === 'active' ? 'paused' : 'active';
+    saveData(STORAGE_KEYS.MICRO_JOBS, jobs);
+    return true;
+  }
+
+  static adjustUserBalance(userId: string, amountBDT: number, note: string): boolean {
+    const profile = this.getUserProfile();
+    if (profile.id === userId) {
+      const wallet = this.getWallet();
+      const newAvail = Math.max(0, Number((wallet.availableBalance + amountBDT).toFixed(2)));
+      const newEarned = amountBDT > 0 ? Number((wallet.totalEarned + amountBDT).toFixed(2)) : wallet.totalEarned;
+      this.updateWallet({ availableBalance: newAvail, totalEarned: newEarned });
+
+      const tx: Transaction = {
+        id: `tx_admin_${Date.now()}`,
+        userId: profile.id,
+        title: amountBDT >= 0 ? 'Admin Bonus Credit' : 'Admin Balance Adjustment',
+        type: amountBDT >= 0 ? 'bonus' : 'adjustment',
+        amount: Math.abs(amountBDT),
+        status: 'completed',
+        createdAt: new Date().toLocaleDateString('en-GB') + ', ' + new Date().toLocaleTimeString('en-US'),
+        referenceId: `ADM_${Date.now().toString().slice(-4)}`,
+        description: note || 'Admin Adjustment',
+      };
+      const txs = this.getTransactions();
+      txs.unshift(tx);
+      saveData(STORAGE_KEYS.TRANSACTIONS, txs);
+      return true;
+    }
+    return true;
+  }
+
+  static updateUserTierDirect(userId: string, newTier: 'inactive' | 'active' | 'vip' | 'master'): boolean {
+    const profile = this.getUserProfile();
+    if (profile.id === userId) {
+      this.updateUserProfile({
+        accountTier: newTier,
+        activationDate: newTier !== 'inactive' ? new Date().toLocaleDateString('en-GB') : undefined,
+      });
+      return true;
+    }
+    return true;
+  }
+
+  static exportApprovedSubmissionsText(jobType?: string): string {
+    const subs = this.getMicroJobSubmissions().filter((s) => s.status === 'approved');
+    const filtered = jobType && jobType !== 'all' ? subs.filter((s) => s.jobType === jobType) : subs;
+    if (filtered.length === 0) return 'কোনো অনুমোদিত একাউন্ট পাওয়া যায়নি (No approved accounts found).';
+
+    return filtered
+      .map((s, idx) => {
+        let line = `${idx + 1}. [${s.jobType.toUpperCase()}] ID: ${s.accountIdentifier}`;
+        if (s.password) line += ` | Pass: ${s.password}`;
+        if (s.twoFactorCodeOrOtp) line += ` | 2FA: ${s.twoFactorCodeOrOtp}`;
+        if (s.additionalNotes) line += ` | Note: ${s.additionalNotes}`;
+        return line;
+      })
+      .join('\n');
   }
 }
