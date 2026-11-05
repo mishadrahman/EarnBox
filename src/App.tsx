@@ -107,16 +107,19 @@ export default function App() {
     }
   };
 
-  // Route detection for standalone /admin
+  // Route detection for standalone /admin (compatible with root domains, GitHub Pages subpaths, and hash routing)
   const checkIsAdminPath = () => {
     if (typeof window === 'undefined') return false;
     const path = window.location.pathname.toLowerCase();
     const hash = window.location.hash.toLowerCase();
+    const search = window.location.search.toLowerCase();
     return (
-      path === '/admin' ||
-      path.startsWith('/admin/') ||
+      path.endsWith('/admin') ||
+      path.endsWith('/admin/') ||
+      path.includes('/admin') ||
       hash === '#admin' ||
-      hash === '#/admin'
+      hash === '#/admin' ||
+      search.includes('admin=true')
     );
   };
 
@@ -136,13 +139,19 @@ export default function App() {
 
   const navigateToAdmin = () => {
     triggerHaptic('medium');
-    window.history.pushState({}, '', '/admin');
+    window.location.hash = '/admin';
     setIsAdminRoute(true);
   };
 
   const navigateToUser = () => {
     triggerHaptic('light');
-    window.history.pushState({}, '', '/');
+    if (window.location.hash) {
+      window.location.hash = '';
+    }
+    if (window.location.pathname.toLowerCase().includes('/admin')) {
+      const cleanPath = window.location.pathname.replace(/\/admin\/?$/i, '') || '/';
+      window.history.pushState({}, '', cleanPath);
+    }
     setIsAdminRoute(false);
     setActiveScreen('home');
   };
